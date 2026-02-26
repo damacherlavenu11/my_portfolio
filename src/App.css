@@ -332,6 +332,17 @@ main {
   margin-top: 0.8rem;
 }
 
+.contact-call {
+  margin-top: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0;
+  border-radius: 0.7rem;
+}
+
 @media (max-width: 700px) {
   .top-nav {
     flex-direction: column;
