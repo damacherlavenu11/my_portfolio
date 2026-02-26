@@ -4,6 +4,9 @@ import "./App.css";
 // shared data
 import { profile, skills, expertise, projects, categories } from "./data";
 
+// GTM utility
+import { logPageView } from "./utils/gtm";
+
 // components
 import Header from "./components/Header";
 import About from "./components/About";
@@ -13,22 +16,7 @@ import Contact from "./components/Contact";
 
 function App() {
   useEffect(() => {
-    const logVisit = async () => {
-      const namespace = "venu-portfolio";
-      const hostKey =
-        window.location.hostname.replace(/[^a-zA-Z0-9-_]/g, "-") || "local";
-      const pathKey =
-        window.location.pathname.replace(/[^a-zA-Z0-9-_]/g, "-") || "home";
-      const key = `${hostKey}${pathKey}`;
-
-      try {
-        await fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`);
-      } catch (error) {
-        // ignore network failures
-      }
-    };
-
-    logVisit();
+    logPageView("portfolio_home");
   }, []);
 
   return (

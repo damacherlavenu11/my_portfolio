@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
+import { logGTMEvent } from "../utils/gtm";
 
 function Contact({ profile }) {
   const [showCopied, setShowCopied] = useState(false);
@@ -10,10 +11,17 @@ function Contact({ profile }) {
     try {
       await navigator.clipboard.writeText(profile.email);
       setShowCopied(true);
+      logGTMEvent("copy_email", { email: profile.email });
       setTimeout(() => setShowCopied(false), 1800);
     } catch (error) {
       setShowCopied(false);
+      console.error("Error copying email:", error);
     }
+  };
+
+  const handleCallPhone = () => {
+    logGTMEvent("call_phone", { phone: profile.mobile });
+    window.location.href = phoneHref;
   };
 
   return (
@@ -55,7 +63,7 @@ function Contact({ profile }) {
           </a>
           <button
             className="btn ghost contact-call"
-            onClick={() => (window.location.href = phoneHref)}
+            onClick={handleCallPhone}
             aria-label="Call phone number"
           >
             <FontAwesomeIcon icon={faPhone} size="sm" color="#4178ff" />
